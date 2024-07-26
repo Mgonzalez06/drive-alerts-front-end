@@ -7,6 +7,8 @@ import {
   Popup,
   useMapEvents,
 } from "react-leaflet";
+import { Button, Typography, TextField, Stack } from "@mui/material";
+import RouteOutlinedIcon from "@mui/icons-material/RouteOutlined";
 /* import 'leaflet/dist/leaflet.css';
 import TrafficData from './artifacts/contracts/TrafficData.sol/TrafficData.json'; */
 
@@ -66,8 +68,13 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <h1>Traffic Data</h1>
+    <Stack className="App" mx={2} my={2}>
+      <Stack display="flex" justifyContent="center" flexDirection="row">
+        <RouteOutlinedIcon fontSize="large" />
+        <Typography variant="h4" fontWeight="bold">
+          Traffic Data
+        </Typography>
+      </Stack>
       <MapContainer
         center={center}
         zoom={10}
@@ -94,26 +101,48 @@ function App() {
           return (
             <Marker key={index} position={{ lat, lng }}>
               <Popup>
-                <p>Location: {report.location}</p>
-                <p>Description: {report.description}</p>
-                <p>Reported by: {report.reporter}</p>
-                <p>
+                <Typography variant="body1">
+                  Location: {report.location}
+                </Typography>
+                <Typography variant="body1">
+                  Description: {report.description}
+                </Typography>
+                <Typography variant="body1">
+                  Reported by: {report.reporter}
+                </Typography>
+                <Typography variant="body1">
                   Timestamp:{" "}
                   {new Date(report.timestamp * 1000).toLocaleString()}
-                </p>
+                </Typography>
               </Popup>
             </Marker>
           );
         })}
       </MapContainer>
-      <input
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button onClick={addReport}>Add Report</button>
-    </div>
+      <Stack
+        display="flex"
+        flexDirection={{ xs: "column", md: "row" }}
+        width="100%"
+        alignItems="center"
+        justifyContent="space-between"
+        mt={2}
+      >
+        <TextField
+          type="text"
+          label="Description"
+          variant="outlined"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <Button
+          variant="outlined"
+          onClick={addReport}
+          sx={{ mt: { xs: 2, md: 0 } }}
+        >
+          Add Report
+        </Button>
+      </Stack>
+    </Stack>
   );
 }
 
