@@ -156,7 +156,7 @@ function App() {
       <MapContainer
         center={center}
         zoom={15}
-        style={{ height: "400px", width: "100%" }}
+        style={{ height: "600px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -164,7 +164,7 @@ function App() {
         />
         <Marker position={universityLocation} icon={universityIcon}>
           <Popup>
-            <Typography variant="h6">University of Costa Rica</Typography>
+            <Typography variant="h6">CENFOTEC</Typography>
           </Popup>
         </Marker>
         <LocationClickHandler setLocation={setLocation} />
