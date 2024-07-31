@@ -31,6 +31,7 @@ const defaultTheme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: "none",
+          fontSize: "0.75rem",
         },
         "& .MuiInputLabel-root": {
           fontSize: "1rem",

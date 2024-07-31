@@ -37,12 +37,7 @@ export async function fetchReports(setReports) {
   }
 }
 
-export async function addReport(
-  location,
-  description,
-  setDescription,
-  setReports
-) {
+export async function addReport(location, description, setReports) {
   console.log(location, description);
   if (!location || !description) return;
   if (typeof window.ethereum !== "undefined") {
@@ -60,7 +55,6 @@ export async function addReport(
       const transaction = await contract.addReport(lat, lng, description);
       await transaction.wait();
       fetchReports(setReports);
-      setDescription("");
     } catch (err) {
       console.log("Error: ", err);
     }

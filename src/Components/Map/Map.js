@@ -11,7 +11,11 @@ export const Map = ({ children }) => {
     <MapContainer
       center={mapCenter}
       zoom={15}
-      style={{ height: "70vh", width: "100%" }}
+      style={{
+        height: "70vh",
+        width: "100%",
+        borderRadius: "10px",
+      }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

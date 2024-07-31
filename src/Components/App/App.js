@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Marker, Popup, useMapEvents } from "react-leaflet";
-import { Typography, Stack } from "@mui/material";
+import { Typography, Stack, Divider, Box } from "@mui/material";
 import RouteOutlinedIcon from "@mui/icons-material/RouteOutlined";
 import { Icon } from "leaflet";
 import { Map, AddAlert, PopupAlert, CustomThemeProvider } from "../index";
 import { fetchReports } from "../../Functions/Reports";
 
-const universityLocation = {
-  lat: 9.931077154575341,
-  lng: -84.06439483165742,
-};
-
 const alertIcon = new Icon({
-  iconUrl: "https://img.icons8.com/?size=100&id=42854&format=png&color=000000",
-  /* iconUrl:
-    "https://upload.wikimedia.org/wikipedia/commons/f/f6/OOjs_UI_icon_alert-destructive.svg", */
-  iconSize: [40, 40], // size of the icon
-});
-
-const universityIcon = new Icon({
   iconUrl:
-    "https://img.icons8.com/?size=100&id=NMFIa3X8I5RT&format=png&color=000000",
-  iconSize: [40, 40], // size of the icon
+    "https://upload.wikimedia.org/wikipedia/commons/c/cf/Warning_FFStyle.png",
+  iconSize: [30, 30], // size of the icon
 });
 
 function App() {
@@ -44,58 +32,57 @@ function App() {
 
   return (
     <CustomThemeProvider>
-      <Stack className="App" mx={2} my={2}>
+      <Stack className="App">
         <Stack
           display="flex"
           justifyContent="center"
           flexDirection="row"
           alignItems="center"
-          mb={1}
+          my={{ xs: 2, md: 0.5 }}
         >
           <RouteOutlinedIcon fontSize="medium" sx={{ color: "green" }} />
-          <Typography variant="h3" fontWeight="bold">
+          <Typography variant="h3" fontWeight="bold" sx={{ color: "#1976d2" }}>
             Drive Alerts
           </Typography>
         </Stack>
-        <Map>
-          <Marker position={universityLocation} icon={universityIcon}>
-            <Popup>
-              <Typography variant="h6">CENFOTEC</Typography>
-            </Popup>
-          </Marker>
-          <LocationClickHandler />
-          {location && (
-            <Marker position={location}>
-              <Popup>
-                Selected Location
-                <br />
-                Latitude: {location.lat}
-                <br />
-                Longitude: {location.lng}
-              </Popup>
-            </Marker>
-          )}
-          <Stack>
-            {reports.map((report, index) => {
-              return (
-                <Marker
-                  key={index}
-                  position={{
-                    lat: report.location.lat,
-                    lng: report.location.lng,
-                  }}
-                  icon={alertIcon}
-                >
-                  <PopupAlert
-                    report={report}
-                    index={index}
-                    setReports={setReports}
-                  />
-                </Marker>
-              );
-            })}
-          </Stack>
-        </Map>
+        <Divider variant="middle" sx={{ borderColor: "gray", mb: 1 }} />
+        <Box mx={2}>
+          <Map>
+            <LocationClickHandler />
+            {location && (
+              <Marker position={location}>
+                <Popup>
+                  Selected Location
+                  <br />
+                  Latitude: {location.lat}
+                  <br />
+                  Longitude: {location.lng}
+                </Popup>
+              </Marker>
+            )}
+            <Stack>
+              {reports.map((report, index) => {
+                return (
+                  <Marker
+                    key={index}
+                    position={{
+                      lat: report.location.lat,
+                      lng: report.location.lng,
+                    }}
+                    icon={alertIcon}
+                  >
+                    <PopupAlert
+                      report={report}
+                      index={index}
+                      setReports={setReports}
+                    />
+                  </Marker>
+                );
+              })}
+            </Stack>
+          </Map>
+        </Box>
+
         <AddAlert location={location} setReports={setReports} />
       </Stack>
     </CustomThemeProvider>
